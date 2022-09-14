@@ -2,21 +2,14 @@
 import BoardTile from "./subcomponents/BoardTile.vue";
 import { ref } from "vue";
 import axios from "axios";
-
-let objQuestion = ref([]);
-axios
-  .get("https://killer-cepegra.xyz/cockpit-ingrwf10/api/content/items/questions")
-  .then((response) => {
-    objQuestion.value = response.data;
-    console.log(objQuestion);
-  })
-  .catch((error) => console.log(error));
-let test = [1, 2, 3, 4];
+import { useGameStore } from "../store/game";
+const store = useGameStore();
 </script>
 <template>
   <ul>
-    <li v-for="(tile, index) in objQuestion">
-      <BoardTile :tile="tile" />
+    <li v-for="(tile, index) in store.getQuestions" :key="index">
+      <h2>{{ index }}</h2>
+      <BoardTile :tile="tile" :tileIndex="index" />
     </li>
   </ul>
 </template>

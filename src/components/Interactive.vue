@@ -3,7 +3,14 @@ import Dice from "./subcomponents/Dice.vue";
 </script>
 
 <template>
-  <Dice />
+  <div class="dice-container">
+    <Dice />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.dice-container {
+  display: flex;
+  justify-content: center;
+}
+</style>

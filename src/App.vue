@@ -1,8 +1,14 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+import { storeToRefs } from "pinia";
 import Board from "./components/Board.vue";
 import Interactive from "./components/Interactive.vue";
+import { useGameStore } from "./store/game";
+
+const store = useGameStore();
+store.setQuestions();
+console.log(store.getPlayers.length);
 </script>
 
 <template>
@@ -13,8 +19,4 @@ import Interactive from "./components/Interactive.vue";
 
 <style scoped lang="scss">
 $color: blue;
-.board {
-}
-.interactive {
-}
 </style>
