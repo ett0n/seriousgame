@@ -1,19 +1,20 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import QuestionData from "../types/QuestionData";
-import Players from "../types/Players";
+import type QuestionData from "../types/QuestionData";
+import type Players from "../types/Players";
 
 import axios from "axios";
 export const useGameStore = defineStore({
   id: "game",
   state: () => ({
     players: ref<Players[]>([
-      { name: "Mathieu", score: 0, curentTile: 0 },
-      { name: "Lucie", score: 1, curentTile: 2 },
+      { name: "Mathieu", score: 0, curentTile: 0, finished: false },
+      { name: "Lucie", score: 1, curentTile: 0, finished: false },
+      { name: "Marc", score: 1, curentTile: 0, finished: false },
     ]),
     activePlayer: ref<number>(0),
     questions: ref<QuestionData[]>([]),
-    diceNb: ref<number>(),
+    diceNb: ref<number>(1),
   }),
   getters: {
     getPlayers: (state) => {
@@ -30,16 +31,19 @@ export const useGameStore = defineStore({
     },
   },
   actions: {
-    setMembers(player: Players) {
+    setAddPlayer(player: Players) {
       this.players.push({ ...player });
     },
-
+    setPlayers(players: Array<Players>) {
+      this.players = [...players];
+    },
     setActivePlayer(player: number) {
       this.activePlayer = player;
     },
 
-    async setQuestions() {
-      this.questions = [{ number: 0 } as QuestionData];
+    async setInitQuestions() {
+      //case depart
+      this.questions = [{ number: 0, qtype: "Start" } as QuestionData];
       await axios
         .get("https://killer-cepegra.xyz/cockpit-ingrwf10/api/content/items/questions?sort=%7Bnumber%3A%22asc%22%7D")
         .then((response) => {
@@ -52,6 +56,11 @@ export const useGameStore = defineStore({
         .catch((error: string) => {
           console.log(error);
         });
+      this.questions.push({ number: this.questions.length, qtype: "Finish" } as QuestionData);
+    },
+
+    setQuestions(questions: Array<QuestionData>) {
+      this.questions = [...questions];
     },
 
     setDice(dice: number) {

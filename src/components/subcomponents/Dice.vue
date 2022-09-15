@@ -6,15 +6,18 @@ import { playerSwitch } from "../../functions";
 const store = useGameStore();
 
 const rollDice = () => {
-  playerSwitch();
   store.setDice(Math.round(Math.random() * 5) + 1);
+  console.log(store.getPlayers[store.activePlayer], store.getDice);
+  playerSwitch();
 };
 </script>
 
 <template>
   <div>
     <button @click="rollDice()">Roll the dice!</button>
-    <p>{{ store.getDice }}</p>
+    <p v-if="store.getDice === 6">?</p>
+    <p v-else-if="store.getDice === 5">X</p>
+    <p v-else>{{ store.getDice }}</p>
   </div>
 </template>
 

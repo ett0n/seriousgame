@@ -7,8 +7,7 @@ import Interactive from "./components/Interactive.vue";
 import { useGameStore } from "./store/game";
 
 const store = useGameStore();
-store.setQuestions();
-console.log(store.getPlayers.length);
+store.setInitQuestions();
 </script>
 
 <template>

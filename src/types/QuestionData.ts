@@ -1,7 +1,7 @@
 interface QuestionData {
   number: number;
   question: string;
-  type: string;
+  qtype: string;
   theme: string;
   response: {
     answers: Array<string>;

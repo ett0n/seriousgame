@@ -8,16 +8,11 @@ const store = useGameStore();
 <template>
   <ul>
     <li v-for="(tile, index) in store.getQuestions" :key="index">
-      <h2>{{ index }}</h2>
       <BoardTile :tile="tile" :tileIndex="index" />
     </li>
   </ul>
 </template>
 <style scoped lang="scss">
-.board-tile {
-  border: 2px solid red;
-  color: green;
-}
 h2 {
   color: blue;
 }
