@@ -12,6 +12,7 @@ interface QuestionData {
   logo: string;
   challenge: boolean | null;
   visited: boolean;
+  answered: boolean | null;
 }
 
 export default QuestionData;

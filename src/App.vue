@@ -11,11 +11,8 @@ store.setInitQuestions();
 </script>
 
 <template>
-  <h1>The serious Game</h1>
   <Board class="board" />
   <Interactive class="interactive" />
 </template>
 
-<style scoped lang="scss">
-$color: blue;
-</style>
+<style scoped lang="scss"></style>

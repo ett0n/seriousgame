@@ -24,8 +24,9 @@ export const changePlayerPos = () => {
   if (dice === 6) {
     if (newBoard.find((el, index) => el.challenge && index > oldTile) !== undefined) {
       newTile = newBoard.find((el, index) => el.challenge && index > oldTile)?.number!;
+      console.log("on a un challenge", newTile);
       //on check si la case est deja visitée
-      if (!newBoard[newTile].visited) {
+      if (newBoard[newTile].visited) {
         if (!newBoard[newTile - 1].visited) newTile--;
       }
     }
@@ -37,10 +38,15 @@ export const changePlayerPos = () => {
     //visited? challenge?
     if (newBoard[newTile].visited || newBoard[newTile].challenge) {
       //+1 visited? challenge?
-      if (!newBoard[newTile + 1].visited && !newBoard[newTile + 1].challenge) newTile++;
+      if (!newBoard[newTile + 1].visited && !newBoard[newTile + 1].challenge) {
+        newTile++;
+      }
       //-1 visited? challenge?
-      else if (!newBoard[newTile - 1].visited && !newBoard[newTile - 1].challenge) newTile--;
-      else newTile = oldTile;
+      else if (!newBoard[newTile - 1].visited && !newBoard[newTile - 1].challenge) {
+        newTile--;
+      } else {
+        newTile = oldTile;
+      }
     }
   }
 
@@ -54,9 +60,15 @@ export const changePlayerPos = () => {
 
 export const playerSwitch = () => {
   if (!store.players[store.getActivePlayer].finished) changePlayerPos();
+  questionSwitch();
   if (store.getPlayers.length - 1 === store.getActivePlayer) {
     store.setActivePlayer(0);
   } else {
     store.setActivePlayer(store.getActivePlayer + 1);
   }
+};
+
+export const questionSwitch = () => {
+  store.setActiveQuestion({ ...store.getQuestions[store.getPlayers[store.activePlayer].curentTile] });
+  console.log(store.getActiveQuestion);
 };
