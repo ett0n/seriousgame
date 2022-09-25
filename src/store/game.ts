@@ -54,7 +54,7 @@ export const useGameStore = defineStore({
       //case depart
       this.questions = [{ number: 0, qtype: "Start", visited: true } as QuestionData];
       await axios
-        .get("https://killer-cepegra.xyz/cockpit-ingrwf10/api/content/items/questions?sort=%7Bnumb3r%3A%22asc%22%7D")
+        .get("https://killer-cepegra.xyz/cockpit-ingrwf10/api/content/items/questions?sort=%7Bnumber%3A%22asc%22%7D")
         .then((response) => {
           response.data.forEach((el: QuestionData) => {
             let objTemp: QuestionData = { ...el };
