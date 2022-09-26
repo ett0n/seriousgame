@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useGameStore } from "../../../store/game";
+import Dice from "../../subcomponents/Dice.vue";
 const store = useGameStore();
 const props = defineProps({
   answerType: Boolean,
+  visited: Boolean,
 });
 
 if (props.answerType) {
@@ -13,7 +15,11 @@ if (props.answerType) {
 </script>
 
 <template>
-  <div v-if="answerType">
+  <div v-if="visited">
+    <h2>😔 Cette case est déjà visitée</h2>
+    <Dice></Dice>
+  </div>
+  <div v-else-if="answerType">
     <h1>✅</h1>
     Bien joué !
   </div>

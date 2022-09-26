@@ -5,8 +5,9 @@ import FormMultiple from "./questions/FormMultiple.vue";
 import type QuestionData from "../../types/QuestionData";
 import GoodBadAnswer from "./questions/GoodBadAnswer.vue";
 import Challenge from "./questions/Challenge.vue";
+import { storeToRefs } from "pinia";
 
-const emit = defineEmits(["sendAnswered"]);
+const emit = defineEmits(["sendAnswered", "switchDiceEmit"]);
 const props = defineProps({
   questionShown: Boolean,
 });
@@ -18,6 +19,8 @@ let lavaleur = ref();
 let goodAnswerParent = ref<boolean>();
 
 const answered = (goodAnswer: boolean) => {
+  //on button click, switch tile to visited = true
+  store.setQuestionVisited(question.value.number);
   emit("sendAnswered", goodAnswer);
   goodAnswerParent.value = goodAnswer;
   hideQuestion.value = false;
@@ -34,11 +37,11 @@ console.log(question);
 
 <template>
   <div>
-    <div v-if="!hideQuestion" class="good-bad">
-      <GoodBadAnswer :answerType="goodAnswerParent"></GoodBadAnswer>
+    <div v-if="!hideQuestion || (hideQuestion && question.visited)" class="good-bad">
+      <GoodBadAnswer :answerType="goodAnswerParent" :visited="question.visited"></GoodBadAnswer>
     </div>
-    <div v-if="hideQuestion">
-      <h2>Question {{ question.qtype }} pour {{ store.getPlayers[store.getActivePlayer === 0 ? store.getPlayers.length - 1 : store.getActivePlayer - 1].name }} !</h2>
+    <div v-else-if="hideQuestion">
+      <h2>Question {{ question.number }}, {{ question.qtype }} pour {{ store.getPlayers[store.getActivePlayer === 0 ? store.getPlayers.length - 1 : store.getActivePlayer - 1].name }} !</h2>
       <h3>{{ question.question }}</h3>
       <div class="questions-container">
         <FormMultiple v-if="question.qtype === 'form-multiple' || question.qtype === 'form-unique'" :question="question" @formSubmit="answered"></FormMultiple>

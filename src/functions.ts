@@ -52,7 +52,6 @@ export const changePlayerPos = () => {
 
   //on set la tile dans le board et le player et on push dans notre data store
   //finish line
-  newBoard[newTile].visited = true;
   newPlayers[store.getActivePlayer].curentTile = newTile;
   store.setQuestions(newBoard);
   store.setPlayers(newPlayers);

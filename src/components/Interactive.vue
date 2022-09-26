@@ -27,7 +27,7 @@ const switchDice = () => {
         <Dice @diceClick="switchDice" />
       </div>
     </div>
-    <Form @sendAnswered="answered" :questionShown="!showDice" v-if="!showDice"></Form>
+    <Form @sendAnswered="answered" @switchDiceEmit="switchDice" :questionShown="!showDice" v-if="!showDice"></Form>
   </div>
 </template>
 

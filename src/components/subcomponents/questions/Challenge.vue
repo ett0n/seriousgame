@@ -18,15 +18,15 @@ const answer = (answer: boolean) => {
 
 <template>
   <form @submit.prevent="" action="">
-    <button @click="answer(true)">Bonne réponse</button>
-    <button @click="answer(false)">Mauvaise réponse</button>
+    <button @click="answer(true)">Bonne réponse ✅</button>
+    <button @click="answer(false)">Mauvaise réponse ❌</button>
   </form>
 </template>
 
 <style scoped lang="scss">
 form {
   display: flex;
-  flex-direction: column;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
   max-width: 600px;

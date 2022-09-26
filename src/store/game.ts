@@ -49,6 +49,9 @@ export const useGameStore = defineStore({
     setActiveQuestion(question: QuestionData) {
       this.activeQuestion = question;
     },
+    setQuestionVisited(questionNb: number) {
+      this.questions[questionNb].visited = true;
+    },
 
     async setInitQuestions() {
       //case depart
